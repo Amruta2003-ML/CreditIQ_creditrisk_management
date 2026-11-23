@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreditIQ — AI Credit Risk Intelligence & Underwriting</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-left">
+        <div class="brand-logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">Credit<span class="highlight">IQ</span></span>
+        </div>
+        <span class="version-tag">Deep ANN v1.0</span>
+      </div>
+      <div class="nav-right">
+        <div class="api-status" id="apiStatusBadge">
+          <span class="status-dot"></span>
+          <span id="apiStatusText">Engine Ready</span>
+        </div>
+        <a href="/docs" target="_blank" class="docs-link">API Swagger</a>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+      <div class="hero-section">
+        <h1>AI-Powered Credit Underwriting & Default Prediction</h1>
+        <p>Trained on 2.2M+ historical LendingClub loan portfolios with deep neural risk representations.</p>
+        
+        <!-- Preset Profiles -->
+        <div class="preset-toolbar">
+          <span class="preset-label">Quick Fill Profiles:</span>
+          <button type="button" class="preset-btn prime" id="btnPresetPrime">
+            <span class="icon">🟢</span> Prime (Low Risk)
+          </button>
+          <button type="button" class="preset-btn near-prime" id="btnPresetNearPrime">
+            <span class="icon">🟡</span> Near Prime (Review)
+          </button>
+          <button type="button" class="preset-btn subprime" id="btnPresetSubprime">
+            <span class="icon">🔴</span> Subprime (High Risk)
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Form Section -->
+        <section class="form-card">
+          <form id="applicantForm" autocomplete="off">
+            
+            <!-- Category 1: Loan Request -->
+            <div class="section-group">
+              <div class="group-header">
+                <span class="step-badge">1</span>
+                <h3>Loan Request Details</h3>
+              </div>
+              <div class="input-grid">
+                <div class="form-field">
+                  <label for="loan_amnt">Loan Amount ($)</label>
+                  <input type="number" id="loan_amnt" name="loan_amnt" min="1000" max="40000" step="500" value="15000" required>
+                </div>
+                <div class="form-field">
+                  <label for="term">Loan Tenure</label>
+                  <select id="term" name="term" required>
+                    <option value=" 36 months">36 Months (3 Years)</option>
+                    <option value=" 60 months">60 Months (5 Years)</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="int_rate">Interest Rate (%)</label>
+                  <input type="number" id="int_rate" name="int_rate" min="5" max="32" step="0.01" value="8.99" required>
+                </div>
+                <div class="form-field">
+                  <label for="installment">Est. Monthly Installment ($)</label>
+                  <input type="number" id="installment" name="installment" min="20" max="2000" step="0.01" value="476.92" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 2: Borrower Financials -->
+            <div class="section-group">
+              <div class="group-header">
+                <span class="step-badge">2</span>
+                <h3>Income & Employment</h3>
+              </div>
+              <div class="input-grid">
+                <div class="form-field">
+                  <label for="annual_inc">Annual Gross Income ($)</label>
+                  <input type="number" id="annual_inc" name="annual_inc" min="10000" max="1000000" step="1000" value="85000" required>
+                </div>
+                <div class="form-field">
+                  <label for="monthly_inc_disp">Calculated Monthly Income ($)</label>
+                  <input type="text" id="monthly_inc_disp" value="$7,083" readonly class="readonly-input">
+                </div>
+                <div class="form-field">
+                  <label for="emp_length">Employment Length</label>
+                  <select id="emp_length" name="emp_length" required>
+                    <option value="< 1 year">&lt; 1 year</option>
+                    <option value="1 year">1 year</option>
+                    <option value="2 years">2 years</option>
+                    <option value="3 years">3 years</option>
+                    <option value="4 years">4 years</option>
+                    <option value="5 years">5 years</option>
+                    <option value="6 years" selected>6 years</option>
+                    <option value="7 years">7 years</option>
+                    <option value="8 years">8 years</option>
+                    <option value="9 years">9 years</option>
+                    <option value="10+ years">10+ years</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="home_ownership">Home Ownership</label>
+                  <select id="home_ownership" name="home_ownership" required>
+                    <option value="MORTGAGE" selected>MORTGAGE</option>
+                    <option value="RENT">RENT</option>
+                    <option value="OWN">OWN</option>
+                    <option value="OTHER">OTHER</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="verification_status">Income Verification</label>
+                  <select id="verification_status" name="verification_status" required>
+                    <option value="Verified" selected>Verified</option>
+                    <option value="Source Verified">Source Verified</option>
+                    <option value="Not Verified">Not Verified</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="purpose">Loan Purpose</label>
+                  <select id="purpose" name="purpose" required>
+                    <option value="debt_consolidation" selected>Debt Consolidation</option>
+                    <option value="credit_card">Credit Card Refinance</option>
+                    <option value="home_improvement">Home Improvement</option>
+                    <option value="major_purchase">Major Purchase</option>
+                    <option value="small_business">Small Business</option>
+                    <option value="car">Car Financing</option>
+                    <option value="medical">Medical Expenses</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 3: Credit Profile & Scores -->
+            <div class="section-group">
+              <div class="group-header">
+                <span class="step-badge">3</span>
+                <h3>Credit History & FICO</h3>
+              </div>
+              <div class="input-grid">
+                <div class="form-field">
+                  <label for="fico_range_low">FICO Score Lower Bound</label>
+                  <input type="number" id="fico_range_low" name="fico_range_low" min="500" max="850" step="5" value="740" required>
+                </div>
+                <div class="form-field">
+                  <label for="fico_range_high">FICO Score Upper Bound</label>
+                  <input type="number" id="fico_range_high" name="fico_range_high" min="500" max="850" step="5" value="744" required>
+                </div>
+                <div class="form-field">
+                  <label for="dti">Debt-to-Income (DTI %)</label>
+                  <input type="number" id="dti" name="dti" min="0" max="99" step="0.1" value="14.5" required>
+                </div>
+                <div class="form-field">
+                  <label for="earliest_cr_line">Earliest Credit Line (Mon-YYYY)</label>
+                  <input type="text" id="earliest_cr_line" name="earliest_cr_line" value="Jan-2008" pattern="[A-Za-z]{3}-\d{4}" title="e.g. Jan-2008" required>
+                </div>
+                <div class="form-field">
+                  <label for="inq_last_6mths">Hard Inquiries (Past 6 Mos)</label>
+                  <input type="number" id="inq_last_6mths" name="inq_last_6mths" min="0" max="20" value="0" required>
+                </div>
+                <div class="form-field">
+                  <label for="delinq_2yrs">Delinquencies (Past 2 Yrs)</label>
+                  <input type="number" id="delinq_2yrs" name="delinq_2yrs" min="0" max="20" value="0" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 4: Debt & Credit Accounts -->
+            <div class="section-group">
+              <div class="group-header">
+                <span class="step-badge">4</span>
+                <h3>Revolving Lines & Accounts</h3>
+              </div>
+              <div class="input-grid">
+                <div class="form-field">
+                  <label for="open_acc">Open Credit Lines</label>
+                  <input type="number" id="open_acc" name="open_acc" min="0" max="80" value="12" required>
+                </div>
+                <div class="form-field">
+                  <label for="total_acc">Total Credit Lines</label>
+                  <input type="number" id="total_acc" name="total_acc" min="0" max="150" value="22" required>
+                </div>
+                <div class="form-field">
+                  <label for="revol_bal">Revolving Balance ($)</label>
+                  <input type="number" id="revol_bal" name="revol_bal" min="0" max="500000" step="100" value="12400" required>
+                </div>
+                <div class="form-field">
+                  <label for="revol_util">Revolving Utilization (%)</label>
+                  <input type="text" id="revol_util" name="revol_util" value="28.5%" required>
+                </div>
+                <div class="form-field">
+                  <label for="pub_rec">Derogatory Public Records</label>
+                  <input type="number" id="pub_rec" name="pub_rec" min="0" max="20" value="0" required>
+                </div>
+                <div class="form-field">
+                  <label for="collections_12_mths_ex_med">Recent Collections (12 Mos)</label>
+                  <input type="number" id="collections_12_mths_ex_med" name="collections_12_mths_ex_med" min="0" max="20" value="0" required>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="issue_d" name="issue_d" value="Mar-2018">
+
+            <div class="form-actions">
+              <button type="submit" id="submitBtn" class="primary-btn">
+                <span class="btn-text">Score Loan Application</span>
+                <span class="btn-spinner" style="display:none;">⏳</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Underwriting Decision Output Section -->
+        <aside class="result-card" id="resultCard">
+          <div class="result-header">
+            <h2>Underwriting Decision</h2>
+            <span class="badge" id="decisionBadge">Awaiting Input</span>
+          </div>
+
+          <!-- Gauge Visualization -->
+          <div class="meter-container">
+            <svg class="gauge-svg" viewBox="0 0 200 120">
+              <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="16" />
+              <path class="gauge-fill" id="gaugeFill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="16" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+            </svg>
+            <div class="gauge-value-display">
+              <span class="gauge-num" id="pdPercentage">0.05%</span>
+              <span class="gauge-caption">Probability of Default</span>
+            </div>
+          </div>
+
+          <!-- Risk Statistics Grid -->
+          <div class="decision-stats">
+            <div class="stat-box">
+              <span class="stat-label">Risk Classification</span>
+              <span class="stat-value" id="riskTierText">Prime (Low Risk)</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Model Credit Score</span>
+              <span class="stat-value" id="creditScoreText">849</span>
+            </div>
+          </div>
+
+          <!-- Action Recommendation Card -->
+          <div class="recommendation-box" id="recommendationBox">
+            <div class="rec-icon" id="recIcon">✅</div>
+            <div class="rec-content">
+              <h4 id="recTitle">Approved for Origination</h4>
+              <p id="recDesc">Borrower meets prime underwriting requirements with negligible default likelihood.</p>
+            </div>
+          </div>
+
+          <!-- Risk Drivers Breakdown -->
+          <div class="drivers-section">
+            <h4>Key Underwriting Factors</h4>
+            <ul class="drivers-list" id="riskDriversList">
+              <li>Strong credit fundamentals across primary indicators</li>
+            </ul>
+          </div>
+
+          <!-- JSON Response Drawer Toggle -->
+          <details class="json-drawer">
+            <summary>View Raw Neural Network Output</summary>
+            <pre><code id="rawJsonDisplay">{}</code></pre>
+          </details>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>CreditIQ Decision Engine • Powered by TensorFlow & Scikit-Learn • LendingClub Cohort Architecture</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

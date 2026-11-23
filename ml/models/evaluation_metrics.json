@@ -1,0 +1,62 @@
+{
+    "test_metrics": {
+        "loss": 0.13793154060840607,
+        "pr_auc": 0.9937942028045654,
+        "precision": 0.8146341443061829,
+        "recall": 0.9940476417541504,
+        "roc_auc": 0.998134970664978
+    },
+    "threshold_policy": {
+        "threshold": 0.7409,
+        "cost": 56.0,
+        "precision": 0.9022,
+        "recall": 0.9881,
+        "f1": 0.9432,
+        "approval_rate": 0.7623
+    },
+    "class_weights": {
+        "0": 0.6245158791634392,
+        "1": 2.5077760497667185
+    },
+    "input_dimension": 38,
+    "features_list": [
+        "loan_amnt",
+        "term_months",
+        "int_rate",
+        "installment",
+        "annual_inc",
+        "monthly_income",
+        "emp_length_years",
+        "dti",
+        "delinq_2yrs",
+        "credit_hist_months",
+        "inq_last_6mths",
+        "open_acc",
+        "pub_rec",
+        "revol_bal",
+        "revol_util",
+        "total_acc",
+        "fico_score",
+        "collections_12_mths_ex_med",
+        "home_ownership_ANY",
+        "home_ownership_MORTGAGE",
+        "home_ownership_OTHER",
+        "home_ownership_OWN",
+        "home_ownership_RENT",
+        "verification_status_Not Verified",
+        "verification_status_Source Verified",
+        "verification_status_Verified",
+        "purpose_car",
+        "purpose_credit_card",
+        "purpose_debt_consolidation",
+        "purpose_home_improvement",
+        "purpose_house",
+        "purpose_major_purchase",
+        "purpose_medical",
+        "purpose_moving",
+        "purpose_other",
+        "purpose_small_business",
+        "purpose_vacation",
+        "purpose_wedding"
+    ]
+}
